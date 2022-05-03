@@ -1,6 +1,9 @@
+import 'package:clean_code_architecture/features/number_trivia/data/models/number_trivia_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
+import '../../../../core/errors/exceptions.dart';
+
 import '../../../../core/platform/network_info.dart';
 import '../../domain/entities/number_trivia.dart';
 import '../../domain/repositories/number_trivia_repository.dart';
@@ -18,9 +21,22 @@ class NumberTriviaRepositoryImp implements NumberTriviaRepository {
   });
   
   @override
-  Future<Either<Failure, NumberTrivia>>? getConcereteNumberTrivia( number)  {
-    networkInfo.isConnected;
-    return null;  
+  Future<Either<Failure, NumberTrivia>> getConcereteNumberTrivia(number)  
+    async {
+      if(await networkInfo.isConnected){
+    try{
+      final remoteTrivia = await remoteDataSource.getConcereteNumberTrivia(number);
+    localDataSource.cacheNumberTrivia(remoteTrivia);
+    return Right(remoteTrivia);
+    } on ServerException{
+      return Left(ServeFailure());
+    }
+      }
+      else{
+        final localTrivia = await localDataSource.getLasNumberTrivia();
+        return Right(localTrivia);
+      }
+
   }
 
   @override
@@ -29,5 +45,5 @@ class NumberTriviaRepositoryImp implements NumberTriviaRepository {
     throw UnimplementedError();
   }
 
-
 }
+
