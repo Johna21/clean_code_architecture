@@ -10,8 +10,8 @@ class MockNumberTriviaRepository extends Mock
       implements NumberTriviaRepository{}
 
 void main(){
-  late GetConcereteNumberTrivia usecase ;
-   MockNumberTriviaRepository mockNumberTriviaRepository = MockNumberTriviaRepository();
+   late GetConcereteNumberTrivia usecase ;
+  late MockNumberTriviaRepository mockNumberTriviaRepository;
 
   setUp((){
 
@@ -25,9 +25,7 @@ void main(){
   final tNumbertrivia = NumberTrivia(text: "test", number: 1);
   test('should get trivia from the number repository',
    () async {
-    /*
-    arrange
-    */
+    // arrange
      when(mockNumberTriviaRepository.getConcereteNumberTrivia(any)).
      thenAnswer((_) async => Right(tNumbertrivia));
 

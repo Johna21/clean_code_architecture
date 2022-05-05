@@ -11,8 +11,8 @@ class MockNumberTriviaRepository extends Mock
       implements NumberTriviaRepository{}
 
 void main(){
-  GetRandomNumberTrivia? usecase ;
-  MockNumberTriviaRepository mockNumberTriviaRepository = MockNumberTriviaRepository();
+  late GetRandomNumberTrivia usecase ;
+  late MockNumberTriviaRepository mockNumberTriviaRepository;
 
   setUp((){
 
@@ -32,10 +32,8 @@ void main(){
      thenAnswer((_) async => Right(tNumbertrivia));
 
     // act
-    if(usecase == null){
-      final result = null;
-    }
-    final result = await usecase!(NoParams());
+    
+    final result = await usecase(NoParams());
 
     // assert
     expect(result, Right(tNumbertrivia));

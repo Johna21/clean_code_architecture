@@ -9,9 +9,9 @@ abstract class UseCase<Type,Params>{
 
 }
 
-abstract class UseCaseRandom<Type,NOParams>{
-  Future<Either<Failure,Type>?> call(NoParams params);
+// abstract class UseCaseRandom<Type,NOParams>{
+//   Future<Either<Failure,Type>> call(NoParams params);
 
-}
+// }
 
  
