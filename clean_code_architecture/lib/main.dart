@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'features/number_trivia/presentation/widget/injection_container.dart' as di;
+void main() async{
+  await di.init();
   runApp(MyApp());
 }
 
